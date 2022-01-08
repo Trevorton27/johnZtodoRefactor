@@ -13,8 +13,8 @@
 
   <form id="formToDoInput" action="">
     <fieldset>
-      <label for="toDoItemText">Enter Resume To Do Here</label>
-      <input type="text" id="toDoItemText" placeholder="Describe to do" title="Title Enter Resume To Do Here"></input>
+      <label for="toDoItemText">Enter text of what To Do Here</label>
+      <input type="text" id="toDoItemText" placeholder="Write to do" title="Title Enter Resume To Do Here"></input>
       <br>
     </fieldset>
 
@@ -49,16 +49,9 @@
   </thead>
   <tbody id="resumeToDoTable">
   <tr>
-    <td>John</td>
-    <td>Doe</td>
-    <td>john@example.net</td>
-    <td>$0.00</td>
-  </tr>
-  <tr>
-    <td>John</td>
-    <td>Doe</td>
-    <td>john@example.net</td>
-    <td>$0.00</td>
+    <td>12/31/2021</td>
+    <td>Radio Box</td>
+    <td>I must enter this email in my Resume john@example.net</td>
   </tr>
   </tbody>
 </table>
@@ -94,16 +87,18 @@
   function addToDoItemToTable() {
     let table = document.getElementById("resumeToDoTable");
     let row = table.insertRow(0);
+
     let cell1 = row.insertCell(0);
     let cell2 = row.insertCell(1);
     let cell3 = row.insertCell(2);
-    let cell4 = row.insertCell(3);
 
     var x = document.getElementById("formToDoInput");
+    console.log("x = " + x);
+
     var text = "";
     var i;
     for (i = 0; i < x.length ;i++) {
-      text += i + " " + x.elements[i].value + "<br>";
+      text += "> " + i + " " + x.elements[i].value + "<br>";
       console.log("text is " + text);
     }
     document.getElementById("demo").innerHTML = text;
@@ -111,14 +106,13 @@
     cell1.innerHTML = getTimeString();
 
     // Helped by https://www.w3schools.com/js/tryit.asp?filename=tryjs_form_elements
-    cell2.innerHTML = document.getElementById("costDateInput").value;
+    // cell2.innerHTML = document.getElementById("toDoItemText").value;
 
     // If use Form ID then you have to figure out which Input element you are using.
     //cell3.innerHTML = document.getElementById("formToDoInput").elements[1].value + Math.round( Math.random() * 10);
 
     cell3.innerHTML = document.getElementById("toDoItemText").value + " - Unique ID " + Math.round( Math.random() * 1000);
 
-    cell4.innerHTML = "$ " + document.getElementById("costMoneyInput").value;
   }
 
   function deleteToDoItemToTable() {
