@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>replit</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+  <section>
+    <script src="script.js"></script>
+    <h2 id="displayResumeItems">What are your Resume To Do Items?</h2>
+
+  <form id="formToDoInput" action="">
+    <fieldset>
+      <label for="">Enter Resume To Do Here</label>
+      <input type="date" id="costDateInput" placeholder="Type your date in" title="Date of Money Transaction"></input>
+      <br>
+
+      <label for>Type in Cost Desc / Payee</label>
+      <input type="text" id="costNameInput" placeholder="Describe what you spent your money on" title="Type in Cost Desc"></input>
+      <br>
+
+      <label for>$1.00 Type in Exchange Amount - number with pattern</label>
+      <input type="number" id="costMoneyInput" pattern="$[0-9].[0-9]" placeholder="Money exchanged" title="Type in Cost Amount"></input>
+      <br>
+
+    </fieldset>
+  </form>
+
+</section>
+
+<section>
+<button type="button" onclick="addRowToTable()"  >add Transaction To Table</button>
+
+<button type="button" onclick="deleteRowFunction()">delete Top Transaction</button>
+</section>
+
+<p>Items in Your Resume that need to get done:</p>
+<br><br>
+
+<table>
+  <thead>
+  <tr>
+    <th>Time</th>
+    <th>Date of $</th>
+    <th>Who got Paid</th>
+    <th>$ Amount</th>
+  </tr>
+  </thead>
+  <tbody id="resumeToDoTable">
+  <tr>
+    <td>John</td>
+    <td>Doe</td>
+    <td>john@example.net</td>
+    <td>$0.00</td>
+  </tr>
+  </tbody>
+</table>
+  
+<p>List of your Money transactions.</p>
+
+<p id="demo"></p>
+
+<script>
+  // https://www.w3docs.com/snippets/javascript/how-to-get-the-value-of-text-input-field-using-javascript.html
+
+  function getDateTimeString() {
+    getDateString() + getTimeString();
+  }
+
+  function getDateString() {
+    const today = new Date();
+    const day = today.getDay();
+    const daylist = ["Sunday","Monday","Tuesday","Wednesday ","Thursday","Friday","Saturday"];
+    let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    
+    return daylist[day] + " " + date;
+  }
+
+  function getTimeString() {
+    let today = new Date();
+    let fullTime = today.getHours() + ":"  + (today.getMinutes() < 10 ? "0" : "") + today.getMinutes() + ":" + (today.getSeconds() < 10 ? "0" : "") + today.getSeconds();
+    console.log("fullTime is " + fullTime);
+    return fullTime;
+  }
+
+  function addRowToTable() {
+    let table = document.getElementById("resumeToDoTable");
+    let row = table.insertRow(0);
+    let cell1 = row.insertCell(0);
+    let cell2 = row.insertCell(1);
+    let cell3 = row.insertCell(2);
+    let cell4 = row.insertCell(3);
+
+    var x = document.getElementById("formToDoInput");
+    var text = "";
+    var i;
+    for (i = 0; i < x.length ;i++) {
+      text += i + " " + x.elements[i].value + "<br>";
+      console.log("text is " + text);
+    }
+    document.getElementById("demo").innerHTML = text;
+
+    cell1.innerHTML = getTimeString();
+
+    // Helped by https://www.w3schools.com/js/tryit.asp?filename=tryjs_form_elements
+    cell2.innerHTML = document.getElementById("costDateInput").value;
+
+    // If use Form ID then you have to figure out which Input element you are using.
+    //cell3.innerHTML = document.getElementById("formToDoInput").elements[1].value + Math.round( Math.random() * 10);
+
+    cell3.innerHTML = document.getElementById("costNameInput").value + " - Unique ID " + Math.round( Math.random() * 1000);
+
+    cell4.innerHTML = "$ " + document.getElementById("costMoneyInput").value;
+  }
+
+  function deleteRowFunction() {
+    document.getElementById("resumeToDoTable").deleteRow(0);
+  }
+
+  // Didn't work for me 1/1/22
+  // document.getElementById('displayResumeItems').title = getDateString();
+
+  /*  This didn't work on 1/1/2022
+  window.onload = function() {
+    document.getElementById('displayResumeItems').setAttribute('title', getDateString());
+    alert(document.getElementById('displayResumeItems').title);
+  }​
+*/
+</script>
+
+  
+</body>
+
+</html>
