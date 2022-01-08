@@ -8,15 +8,23 @@ form{
   border-color: chocolate;
   color: rgb(62, 99, 26);
   font-family: Georgia, 'Times New Roman', Times, serif;
-  margin: 10px;
+  margin: 1px;
   padding: 6px;
+}
+.grid-container{
+  border: 1px solid yellow;
+  margin: 1px;
+  
+  height: 1pm solid yellowgreen;
+  display: grid;
+  grid-column-gap: 50px;
 }
 p{
   color: blueviolet;  
 }
 table{
   border: 5px solid;
-  color: darkgreen;
+  color: rgb(58, 156, 58);
   font-family: cursive;
   grid-row: auto;
 }

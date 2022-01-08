@@ -9,43 +9,42 @@
   <body>
   <section>
     <script src="script.js"></script>
-    <h2 id="displayResumeItems">What are your Resume To Do Items?</h2>
+    <h2 id="displayResumeItems">Here is my list of things I need to do to finish my Resume:</h2>
 
   <form id="formToDoInput" action="">
     <fieldset>
-      <label for="">Enter Resume To Do Here</label>
-      <input type="date" id="costDateInput" placeholder="Type your date in" title="Date of Money Transaction"></input>
+      <label for="toDoItemText">Enter Resume To Do Here</label>
+      <input type="text" id="toDoItemText" placeholder="Describe to do" title="Title Enter Resume To Do Here"></input>
       <br>
-
-      <label for>Type in Cost Desc / Payee</label>
-      <input type="text" id="costNameInput" placeholder="Describe what you spent your money on" title="Type in Cost Desc"></input>
-      <br>
-
-      <label for>$1.00 Type in Exchange Amount - number with pattern</label>
-      <input type="number" id="costMoneyInput" pattern="$[0-9].[0-9]" placeholder="Money exchanged" title="Type in Cost Amount"></input>
-      <br>
-
     </fieldset>
+
+    <section>
+      <br>
+      <center>
+        <div>
+        <button type="button" onclick="addToDoItemToTable()"  >Add your To Do Item to your list</button>
+        </div>
+      <br>
+        <div>
+        <button type="button" onclick="deleteToDoItemToTable()">Delete Completed & Checked Item from List</button>
+        </div>
+      </center>
+    </section>
+
   </form>
 
 </section>
 
-<section>
-<button type="button" onclick="addRowToTable()"  >add Transaction To Table</button>
-
-<button type="button" onclick="deleteRowFunction()">delete Top Transaction</button>
-</section>
 
 <p>Items in Your Resume that need to get done:</p>
-<br><br>
 
+<div class="grid-container">
 <table>
   <thead>
   <tr>
-    <th>Time</th>
-    <th>Date of $</th>
-    <th>Who got Paid</th>
-    <th>$ Amount</th>
+    <th>Date Entered</th>
+    <th>Completed?</th>
+    <th>To Do Item</th>
   </tr>
   </thead>
   <tbody id="resumeToDoTable">
@@ -55,10 +54,17 @@
     <td>john@example.net</td>
     <td>$0.00</td>
   </tr>
+  <tr>
+    <td>John</td>
+    <td>Doe</td>
+    <td>john@example.net</td>
+    <td>$0.00</td>
+  </tr>
   </tbody>
 </table>
+</div>
   
-<p>List of your Money transactions.</p>
+<p>List of your To Do items to finish your resume (CV).</p>
 
 <p id="demo"></p>
 
@@ -85,7 +91,7 @@
     return fullTime;
   }
 
-  function addRowToTable() {
+  function addToDoItemToTable() {
     let table = document.getElementById("resumeToDoTable");
     let row = table.insertRow(0);
     let cell1 = row.insertCell(0);
@@ -110,12 +116,12 @@
     // If use Form ID then you have to figure out which Input element you are using.
     //cell3.innerHTML = document.getElementById("formToDoInput").elements[1].value + Math.round( Math.random() * 10);
 
-    cell3.innerHTML = document.getElementById("costNameInput").value + " - Unique ID " + Math.round( Math.random() * 1000);
+    cell3.innerHTML = document.getElementById("toDoItemText").value + " - Unique ID " + Math.round( Math.random() * 1000);
 
     cell4.innerHTML = "$ " + document.getElementById("costMoneyInput").value;
   }
 
-  function deleteRowFunction() {
+  function deleteToDoItemToTable() {
     document.getElementById("resumeToDoTable").deleteRow(0);
   }
 
