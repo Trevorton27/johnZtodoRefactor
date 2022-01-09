@@ -72,7 +72,9 @@
     const today = new Date();
     const day = today.getDay();
     const daylist = ["Sunday","Monday","Tuesday","Wednesday ","Thursday","Friday","Saturday"];
-    let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    let date = (today.getMonth()+1) +
+              '-' + (today.getDate() < 10 ? "0" + today.getDate() : today.getDate()) +
+              '-' + today.getFullYear();
     
     return daylist[day] + " " + date;
   }
@@ -103,7 +105,7 @@
     }
     document.getElementById("demo").innerHTML = text;
 
-    cell1.innerHTML = getTimeString();
+    cell1.innerHTML = getDateString();
 
     // Helped by https://www.w3schools.com/js/tryit.asp?filename=tryjs_form_elements
     // cell2.innerHTML = document.getElementById("toDoItemText").value;
