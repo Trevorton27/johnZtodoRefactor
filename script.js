@@ -4,7 +4,7 @@ const daylist = ["Sunday","Monday","Tuesday","Wednesday ","Thursday","Friday","S
     const today = new Date();
     const dayOfWeek = today.getDay();
 
-    let date = (today.getMonth() + 1) +
+    let date = (today.getMonth().toString().padStart(1, '0') + 1) +
               '-' + (today.getDate() < 10 ? "0" + today.getDate() : today.getDate()) +
               '-' + today.getFullYear();
     
@@ -35,5 +35,23 @@ const daylist = ["Sunday","Monday","Tuesday","Wednesday ","Thursday","Friday","S
   }
 
   function deleteToDoItemToTable() {
-    document.getElementById("resumeToDoTable").deleteRow(0);
+    let table, rows, switching, i, x, y, shouldSwitch;
+    table = document.getElementById("resumeToDoTable");
+    rows = table.rows;
+
+    console.log("about to loop through table list : # of rows = " + rows.length);
+
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = 0; i < rows.length; i++) {
+
+      checkBox = rows[i].getElementsByTagName("TD")[1].innerHTML;
+      console.log("checkBox is " + checkBox);
+      console.log('getElementsByTagName("row0") is ' + rows[i].getElementsByTagName("row0"));
+      console.log(`rows[i].getElementsByTagName("row0").checked = ` + rows[i].getElementsByTagName("row0").checked);
+
+      toDoItemText = rows[i].getElementsByTagName("TD")[2].innerHTML;
+    }
+
+    // document.getElementById("resumeToDoTable").deleteRow(0);
   }
