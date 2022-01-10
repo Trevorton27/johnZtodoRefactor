@@ -2,7 +2,8 @@
 
 1/08/2022 4:03 pm Pacific
 
-This is the Read Me file for my Software Development MasterMind (SDMM) project called HTML and CSS To Do App
+This is the Read Me file for my Software Development MasterMind (SDMM) project called "Resume To Do"
+To Do App Written in : HTML, CSS and Javascript
 
 Expected Time To Complete
 1-2 weeks
