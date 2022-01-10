@@ -39,7 +39,7 @@
       text += "> " + i + " " + x.elements[i].value + "<br>";
       console.log("text is " + text);
     }
-    document.getElementById("demo").innerHTML = text;
+    console.log(text);
 
     cell1.innerHTML = getDateString();
 

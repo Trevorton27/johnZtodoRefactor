@@ -8,61 +8,57 @@
   </head>
   <body>
   <section>
-    <script src="script.js"></script>
     <h2 id="displayResumeItems">Here is my list of things I need to do to finish my Resume:</h2>
 
-  <form id="formToDoInput" action="">
-    <fieldset>
-      <label for="toDoItemText">Enter text of what To Do Here</label>
-      <input type="text" id="toDoItemText" placeholder="Write to do" title="Title Enter Resume To Do Here"></input>
-      <br>
-    </fieldset>
+    <form id="formToDoInput" action="">
+      <fieldset>
+        <label for="toDoItemText">Enter text of what To Do Here</label>
+        <input type="text" id="toDoItemText" placeholder="Write to do" title="Title Enter Resume To Do Here"></input>
+        <br>
+      </fieldset>
 
-    <section>
-      <br>
-      <center>
-        <div>
-        <button type="button" onclick="addToDoItemToTable()"  >Add your To Do Item to your list</button>
-        </div>
-      <br>
-        <div>
-        <button type="button" onclick="deleteToDoItemToTable()">Delete Completed & Checked Item from List</button>
-        </div>
-      </center>
-    </section>
+      <section>
+        <br>
+        <center>
+          <div>
+          <button type="button" onclick="addToDoItemToTable()"  >Add your To Do Item to your list</button>
+          </div>
+        <br>
+          <div>
+          <button type="button" onclick="deleteToDoItemToTable()">Delete Completed & Checked Item from List</button>
+          </div>
+        </center>
+      </section>
 
-  </form>
+    </form>
 
-</section>
+  </section>
 
 
-<p>Items in Your Resume that need to get done:</p>
+  <p>Items in Your Resume that need to get done:</p>
 
-<div class="grid-container">
-<table>
-  <thead>
-  <tr>
-    <th>Date Entered</th>
-    <th>Completed?</th>
-    <th>To Do Item</th>
-  </tr>
-  </thead>
-  <tbody id="resumeToDoTable">
-  <tr>
-    <td>12/31/2021</td>
-    <td>Radio Box</td>
-    <td>I must enter this email in my Resume john@example.net</td>
-  </tr>
-  </tbody>
-</table>
-</div>
-  
-<p>List of your To Do items to finish your resume (CV).</p>
+  <div class="grid-container">
+  <table>
+    <thead>
+    <tr>
+      <th>Date Entered</th>
+      <th>Completed?</th>
+      <th>To Do Item</th>
+    </tr>
+    </thead>
+    <tbody id="resumeToDoTable">
+    <tr>
+      <td>12/31/2021</td>
+      <td>Radio Box</td>
+      <td>I must enter this email in my Resume john@example.net</td>
+    </tr>
+    </tbody>
+  </table>
+  </div>
+    
+  <p>List of your To Do items to finish your resume (CV).</p>
 
-<p id="demo"></p>
-
-<script src="script.js"></script>
-
+  <script src="script.js"></script>
   
 </body>
 
