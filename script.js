@@ -47,9 +47,10 @@ const daylist = ["Sunday","Monday","Tuesday","Wednesday ","Thursday","Friday","S
 
       checkBox = rows[i].getElementsByTagName("TD")[1].innerHTML;
       console.log("checkBox is " + checkBox);
-      console.log('getElementsByTagName("row0") is ' + rows[i].getElementsByTagName("row0"));
-      console.log(`rows[i].getElementsByTagName("row0").checked = ` + rows[i].getElementsByTagName("row0").checked);
-
+      console.log(`rows[${i}].getElementsByTagName("row0") is ` + rows[i].getElementsByTagName("row0"));
+      console.log(`rows[${i}].getElementsByTagName("row0").checked = ` + rows[i].getElementsByTagName("row0").checked);
+      console.log(`document.getElementsByTagName("row0") = ` + document.getElementsByTagName("row0"));
+      console.log(`document.getElementsByTagName("row0").checked = ` + document.getElementsByTagName("row0").checked);
       toDoItemText = rows[i].getElementsByTagName("TD")[2].innerHTML;
     }
 
