@@ -1,5 +1,7 @@
 const daylist = ["Sunday","Monday","Tuesday","Wednesday ","Thursday","Friday","Saturday"];
 
+let tableListRowCounter = 1;
+
   function getDateString() {
     const today = new Date();
     const dayOfWeek = today.getDay();
@@ -20,7 +22,7 @@ const daylist = ["Sunday","Monday","Tuesday","Wednesday ","Thursday","Friday","S
 
   function addToDoItemToTable() {
     let table = document.getElementById("resumeToDoTable");
-    let row = table.insertRow(0);
+    let row = table.insertRow(tableListRowCounter);
 
     let dateCell = row.insertCell(0);
     let checkBoxCell = row.insertCell(1);
@@ -28,7 +30,8 @@ const daylist = ["Sunday","Monday","Tuesday","Wednesday ","Thursday","Friday","S
 
     dateCell.innerHTML = getDateString();
 
-    checkBoxCell.innerHTML = `<input type="checkbox" id="row1">`;
+    checkBoxCell.innerHTML = `<input type="checkbox" id="row${tableListRowCounter}">`;
+    tableListRowCounter += 1;
 
     toDoTextCell.innerHTML = document.getElementById("toDoItemText").value;
 
@@ -36,23 +39,38 @@ const daylist = ["Sunday","Monday","Tuesday","Wednesday ","Thursday","Friday","S
 
   function deleteToDoItemToTable() {
     let table, rows, switching, i, x, y, shouldSwitch;
+    let consoleText = "";
+
     table = document.getElementById("resumeToDoTable");
     rows = table.rows;
 
-    console.log("about to loop through table list : # of rows = " + rows.length);
+    consoleText = "about to loop through table list : # of rows = " + rows.length;
+
+    // console.log(consoleText);
 
     /* Loop through all table rows (except the
     first, which contains table headers): */
     for (i = 0; i < rows.length; i++) {
 
       checkBox = rows[i].getElementsByTagName("TD")[1].innerHTML;
-      console.log("checkBox is " + checkBox);
-      console.log(`rows[${i}].getElementsByTagName("row0") is ` + rows[i].getElementsByTagName("row0"));
-      console.log(`rows[${i}].getElementsByTagName("row0").checked = ` + rows[i].getElementsByTagName("row0").checked);
-      console.log(`document.getElementsByTagName("row0") = ` + document.getElementsByTagName("row0"));
-      console.log(`document.getElementsByTagName("row0").checked = ` + document.getElementsByTagName("row0").checked);
-      toDoItemText = rows[i].getElementsByTagName("TD")[2].innerHTML;
+
+      consoleText += "<br>\n" + i + " checkBox is " + checkBox + " and has " + checkBox.length;
+      consoleText += "<br>\n" + `rows[${i}].getElementsByTagName("row0") is ` + rows[i].getElementsByTagName("row0");
+      consoleText += "<br>\n" + `rows[${i}].getElementsByTagName("row0").checked = ` + rows[i].getElementsByTagName("row0").checked;
+
+      consoleText += `rows[${i}].getElementsByTagName("row0").checked = ` 
+                    + rows[i].getElementsByTagName("row0").checked;
+      consoleText += `document.getElementsByTagName("row0") = ` 
+                    + document.getElementsByTagName("row0");
+      consoleText += `document.getElementsByTagName("row0").checked = ` 
+                    + document.getElementsByTagName("row0").checked;
+
+      // document.getElementById("demo").innerHTML = consoleText;
+
+      toDoItemTextString = rows[i].getElementsByTagName("TD")[2].innerHTML;
+
     }
 
-    // document.getElementById("resumeToDoTable").deleteRow(0);
+    console.log("A " + consoleText);
+
   }
