@@ -46,6 +46,9 @@ let tableListRowCounter = 1;
 
     consoleText = "about to loop through table list : # of rows = " + rows.length;
 
+    let cb = document.querySelector('#row0');
+    console.log("row0 checkBox.checked is " + cb.checked + ".");
+
     // console.log(consoleText);
 
     /* Loop through all table rows (except the
@@ -54,16 +57,7 @@ let tableListRowCounter = 1;
 
       checkBox = rows[i].getElementsByTagName("TD")[1].innerHTML;
 
-      consoleText += "<br>\n" + i + " checkBox is " + checkBox + " and has " + checkBox.length;
-      consoleText += "<br>\n" + `rows[${i}].getElementsByTagName("row0") is ` + rows[i].getElementsByTagName("row0");
-      consoleText += "<br>\n" + `rows[${i}].getElementsByTagName("row0").checked = ` + rows[i].getElementsByTagName("row0").checked;
-
-      consoleText += `rows[${i}].getElementsByTagName("row0").checked = ` 
-                    + rows[i].getElementsByTagName("row0").checked;
-      consoleText += `document.getElementsByTagName("row0") = ` 
-                    + document.getElementsByTagName("row0");
-      consoleText += `document.getElementsByTagName("row0").checked = ` 
-                    + document.getElementsByTagName("row0").checked;
+      consoleText += "<br>\n" + i + " checkBox is " + checkBox.id + " and has " + checkBox.length;
 
       // document.getElementById("demo").innerHTML = consoleText;
 
@@ -74,3 +68,7 @@ let tableListRowCounter = 1;
     console.log("A " + consoleText);
 
   }
+
+//      consoleText += "<br>\n" + `rows[${i}].getElementsByTagName("row0") is ` + rows[i].getElementsByTagName("row0");
+//       consoleText += `document.getElementsByTagName("row0") = ` 
+//                    + document.getElementsByTagName("row0");
