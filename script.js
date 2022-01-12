@@ -43,15 +43,24 @@ let tableListRowCounter = 1;
 
     let inputs_in_table = document.getElementById("resumeToDoTable").getElementsByTagName("input");
     let checkBox2;
+    console.log("inputs_in_table.length is " + inputs_in_table.length);
 
-    for (var jLoop = 0; jLoop < inputs_in_table.length; jLoop++) {
+    for (var jLoop = 0; jLoop <= inputs_in_table.length; jLoop++) {
+      
       checkBox2 = inputs_in_table[jLoop];
+      
+      console.log(`for jLoop[${jLoop}] start`);
 
-      if (inputs_in_table[jLoop].type == "checkbox") 
+      if (checkBox2.type == "checkbox") {
+        console.log(`jLoop[${jLoop}] is on a checkbox`);
         if (checkBox2.checked) {
+          console.log(`jLoop[${jLoop}] is on a checkbox and deleting it from table`);
           document.getElementById("resumeToDoTable").deleteRow(jLoop);
           tableListRowCounter--;
         }
+      }
+      console.log(`for jLoop[${jLoop}] END`);
+
     }
 
   }
