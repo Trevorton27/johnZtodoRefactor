@@ -5,6 +5,18 @@
 This is the Read Me file for my Software Development MasterMind (SDMM) project called "Resume To Do"
 To Do App Written in : HTML, CSS and Javascript
 
+Slack SDMM client Scott said to try this site for Checkbox issue:
+https://www.technothirsty.com/getelementbyid-vs-getelementsbyname-vs-getelementsbytagname/
+
+1/10/22 - Testing case:
+1 - In Input field "Enter text of whet to Do Here"
+     type in string of characters or digits
+2 - Press button Add Item
+3 - Look down at "Items in Your Resume" list table
+4 - The new To Do row should be at the bottom
+5 - Button : Press the Delete button "Delete Completed & Checked Item from List"
+6 - In console.log output there will be a list of output that is supposed to show the CheckBox.checked Boolean output.
+
 Expected Time To Complete
 1-2 weeks
 Rules
