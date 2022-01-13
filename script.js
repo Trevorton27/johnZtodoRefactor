@@ -1,6 +1,7 @@
 const daylist = ["Sunday","Monday","Tuesday","Wednesday ","Thursday","Friday","Saturday"];
 
 let tableListRowCounter = 1;
+let eventMaxListenerRowCounter = 1;
 
   function getDateString() {
     const today = new Date();
@@ -20,26 +21,36 @@ let tableListRowCounter = 1;
   }
 
 
-  function checkBoxClicked() {
-      // Get the checkbox
-    let checkBox = document.getElementById("row0");
-      // Get the output text
-    let toDoText = document.getElementById("row0text");
+  function checkBoxClicked(rowString) {
+
+    console.log(`In function checkBoxClicked(rowString is ${rowString}) ` + getTimeString());
+
+    let checkBox = document.getElementById(rowString);
+
+    console.log("checkBoxClicked looking for `${rowString}text` is " + `${rowString}text`);
+
+    let toDoText = document.getElementById(`${rowString}text`);
+
+    if (typeof(toDoText) != 'undefined' && toDoText != null) {
+      console.log(`checkBoxClicked toDoText exists and toDoText.id = ${toDoText.id}`);
+    }
+    else {
+      console.log(`checkBoxClicked toDoText Either Undefined or NULL  typeof(toDoText) != ${typeof(toDoText)} && toDoText != null`);
+    }
 
     if (checkBox.checked == true){
-      // In CSS make Strike Through 
-      //       text-decoration.line-through
-      //toDoText.style.color = "gold";
       
       // In CSS text-decoration: underline
       // object.style.textDecoration = "none|underline|overline|line-through|blink|initial|inherit"
       toDoText.style.textDecoration = "line-through";
       
     } else {
-      //console.log("checkBoxClicked : else (checkBox.checked == false");
+
       //toDoText.style.display = "initial";
       //toDoText.style.color = "green";
-      toDoText.style.textDecoration = "inherit";
+      if (typeof(toDoText) != 'undefined' && toDoText != null) {
+        toDoText.style.textDecoration = "initial";
+      }
     }
   }
 
@@ -54,14 +65,21 @@ let tableListRowCounter = 1;
 
     dateCell.innerHTML = getDateString();
 
-    checkBoxCell.innerHTML = `<input type="checkbox" id="row${tableListRowCounter}" title="Added checkbox Title here" value="Added checkbox value"></input>`;
-    document.getElementById(`row${tableListRowCounter}`).addEventListener("click", checkBoxClicked());
+    checkBoxCell.innerHTML = `<input type="checkbox" id="row${eventMaxListenerRowCounter}" title="Added checkbox Title here" value="Added checkbox value"></input>`;
+
+    console.log("calling addEventListener checkBoxClicked(`row${eventMaxListenerRowCounter}`) is " + `row${eventMaxListenerRowCounter}`);
+
+    document.getElementById(`row${eventMaxListenerRowCounter}`).addEventListener("click", checkBoxClicked(`row${eventMaxListenerRowCounter}`) );
 
     toDoTextCell.innerHTML = document.getElementById("toDoItemText").value;
-    toDoTextCell.id = `row${tableListRowCounter}`;
+    toDoTextCell.id = `row${eventMaxListenerRowCounter}`;
 
-    tableListRowCounter += 1;
+    conosole.log(toDoTextCell);
 
+    tableListRowCounter++;
+
+    // ensures unique Check Box Listener counter
+    eventMaxListenerRowCounter++;
   }
 
 
@@ -81,6 +99,7 @@ let tableListRowCounter = 1;
 
           if (checkBox2.checked) {
             document.getElementById("resumeToDoTable").deleteRow(newRowPointer);
+
             tableListRowCounter--;
             newRowPointer += 0;
             newTableLength -= 1;
