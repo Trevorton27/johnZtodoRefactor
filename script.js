@@ -19,6 +19,30 @@ let tableListRowCounter = 1;
     return today.getHours() + ":"  + (today.getMinutes() < 10 ? "0" : "") + today.getMinutes() + ":" + (today.getSeconds() < 10 ? "0" : "") + today.getSeconds();
   }
 
+
+  function checkBoxClicked() {
+      // Get the checkbox
+    let checkBox = document.getElementById("row0");
+      // Get the output text
+    let toDoText = document.getElementById("row0text");
+
+    if (checkBox.checked == true){
+      // In CSS make Strike Through 
+      //       text-decoration.line-through
+      //toDoText.style.color = "gold";
+      
+      // In CSS text-decoration: underline
+      // object.style.textDecoration = "none|underline|overline|line-through|blink|initial|inherit"
+      toDoText.style.textDecoration = "line-through";
+      
+    } else {
+      //console.log("checkBoxClicked : else (checkBox.checked == false");
+      //toDoText.style.display = "initial";
+      //toDoText.style.color = "green";
+      toDoText.style.textDecoration = "inherit";
+    }
+  }
+
   function addToDoItemToTable() {
     let table = document.getElementById("resumeToDoTable");
   
@@ -31,10 +55,12 @@ let tableListRowCounter = 1;
     dateCell.innerHTML = getDateString();
 
     checkBoxCell.innerHTML = `<input type="checkbox" id="row${tableListRowCounter}" title="Added checkbox Title here" value="Added checkbox value"></input>`;
-
-    tableListRowCounter += 1;
+    document.getElementById(`row${tableListRowCounter}`).addEventListener("click", checkBoxClicked());
 
     toDoTextCell.innerHTML = document.getElementById("toDoItemText").value;
+    toDoTextCell.id = `row${tableListRowCounter}`;
+
+    tableListRowCounter += 1;
 
   }
 
