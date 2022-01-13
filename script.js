@@ -76,13 +76,9 @@ let eventMaxListenerRowCounter = 1;
 
     let checkBox = document.getElementById(rowString);
 
-    // printElement(checkBox);
-
     console.log("checkBoxClicked looking for `${rowString}text` is " + `${rowString}text`);
 
     let toDoText = document.getElementById(`${rowString}text`);
-
-    // printElement(toDoText);
 
     if (typeof(toDoText) != 'undefined' && toDoText != null) {
       console.log(`checkBoxClicked toDoText exists and toDoText.id = ${toDoText.id}`);
@@ -126,8 +122,44 @@ let eventMaxListenerRowCounter = 1;
     toDoTextCell.innerHTML = document.getElementById("toDoItemText").value;
     toDoTextCell.id = `row${eventMaxListenerRowCounter}text`;
 
+/*
+    document.getElementById("myBtn"                           ).addEventListener(
+      "click", function() {document.getElementById("demo").innerHTML = "Hello World";}
+      );
+  */
     document.getElementById(`row${eventMaxListenerRowCounter}`).addEventListener(
-      "click", checkBoxClicked(`row${eventMaxListenerRowCounter}`) 
+      "click", 
+      function () {
+        rowString = `${this.id}`;
+        console.log(`\nIn ### function checkBoxClicked(rowString is ${rowString}) ` + getTimeString());
+
+        let checkBox = document.getElementById(rowString);
+
+        console.log("### checkBoxClicked looking for `${rowString}text` is " + `${rowString}text`);
+
+        let toDoText = document.getElementById(`${rowString}text`);
+
+        if (typeof(toDoText) === 'undefined' || toDoText === null) {
+          console.log(`### checkBoxClicked toDoText Either Undefined or NULL  typeof(toDoText) != ${typeof(toDoText)} && toDoText != null`);
+        }
+        else {
+
+          if (checkBox.checked == true){
+            
+            // In CSS text-decoration: underline
+            // object.style.textDecoration = "none|underline|overline|line-through|blink|initial|inherit"
+            toDoText.style.textDecoration = "line-through";
+            
+          } else {
+
+            //toDoText.style.display = "initial";
+            //toDoText.style.color = "green";
+            if (typeof(toDoText) != 'undefined' && toDoText != null) {
+              toDoText.style.textDecoration = "initial";
+            }
+          }
+        }
+      }
       );
 
     console.log("\n" + getTimeString() + "  Table Row text field.id is '" + toDoTextCell.id + "' has '" + toDoTextCell.innerHTML + "'");
