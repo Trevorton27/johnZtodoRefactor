@@ -10,12 +10,12 @@
   <body>
   
   <section>
-    <h2 id="displayResumeItems">Here is my list of things I need to do to finish my Resume:</h2>
+    <h1>Here is my list of things I need to do to finish my Resume:</h1>
 
-    <form id="formToDoInput" action="">
+    <form>
       <fieldset>
         <label for="toDoItemText">Enter text of what To Do Here</label>
-        <input type="text" id="toDoItemText" placeholder="Write to do" title="Enter your To Do Text here"></input>
+        <input type="text" id="toDoItemText" placeholder="Write to do here" title="Enter your Resume To Do text here"></input>
         <br>
       </fieldset>
 
@@ -28,7 +28,7 @@
         <br>
           <div>
           <button type="button" onclick="deleteToDoItemToTable()" 
-          title="Click mouse here to delete checked row">Delete Completed & Checked Item from List</button>
+          title="Click mouse here to delete checked row(s)">Delete Completed & Checked Item from List</button>
           </div>
         </center>
       </section>
@@ -37,9 +37,9 @@
 
   </section>
 
-
-  <p>Items in Your Resume that need to get done:</p>
-
+  <div>
+  <h2>Items in Your Resume that need to get done:</h2>
+  </div>
   <div class="grid-container">
     <table class="w3-table-w3-striped">
       <thead title="This is your To Do list for your Resume">
@@ -54,7 +54,7 @@
         <td>Friday 12-31-2021</td>
         <td><input type="checkbox" id="row0" title="Original Title" value="Orig checkbox value" onclick="checkBoxClicked('row0')"></input>
         </td>
-        <td id="row0text">I must enter this email in my Resume john@example.net</td>
+        <td id="row0text">Here's what your To Do text will look like.</td>
       </tr>
       </tbody>
     </table>

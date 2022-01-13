@@ -5,21 +5,31 @@
 This is the Read Me file for my Software Development MasterMind (SDMM) project called "Resume To Do"
 To Do App Written in : HTML, CSS and Javascript
 
-Slack SDMM client Scott said to try this site for Checkbox issue:
-https://www.technothirsty.com/getelementbyid-vs-getelementsbyname-vs-getelementsbytagname/
+1/13/22 - Testing case:
 
-1/10/22 - Testing case:
+A - Add Button
+
 1 - In Input field "Enter text of whet to Do Here"
      type in string of characters or digits
 2 - Press button Add Item
 3 - Look down at "Items in Your Resume" list table
-4 - The new To Do row should be at the bottom
-5 - Button : Press the Delete button "Delete Completed & Checked Item from List"
-6 - In console.log output there will be a list of output that is supposed to show the CheckBox.checked Boolean output.
+4 - Your new To Do text should be in the bottom row
 
-Expected Time To Complete
-1-2 weeks
-Rules
+If you are done with your To Do item then press the check box and you should see the To Do item's text get a strike-through line through it.
+
+B - Delete Button : 
+
+If you want to delete one or more of your completed To Do items then 
+a - go through the items that have a checkbox marked and the text marked through
+b - How every many items are check marked will be deleted.
+c - Press the Delete button "Delete Completed & Checked Item from List"
+
+<h4>Improvement Requests:</h4>
+1/13/22 If press Add button with no text it adds an empty To Do item.
+
+<h2>Time To Complete 6 days</h2>
+
+<h3>Rules</h3>
 ●  Project will be written in:
 ○  HTML
 ○  CSS
@@ -27,7 +37,8 @@ Rules
 ●  No Javascript libraries or frameworks are allowed
 ●  No following tutorials of todo apps/projects
 ●  No copying code of other existing todo apps/projects
-Deliverables
+
+<h3>Deliverables</h3>
 ●  Cross off each one as you have completed
 ●  A user can create a todo item by entering text into an input box and pressing a button
 ●  A list of created todo items are shown on the screen
