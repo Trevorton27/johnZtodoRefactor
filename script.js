@@ -1,134 +1,195 @@
-const daylist = ["Sunday","Monday","Tuesday","Wednesday ","Thursday","Friday","Saturday"];
+const deleteAllCompletedTodosButton = document.getElementById(
+  'delete-all-completed-tasks-button'
+);
 
-let tableListRowCounter = 1;
-let eventListenerMaxRowCounter = 1;
+deleteAllCompletedTodosButton.addEventListener('click', deleteAllCheckedTasks);
+const submitButton = document.getElementById('submit-button');
+submitButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  const todoText = document.getElementById('toDoItemText').value;
+  const todoItems = getTodoArray();
+  if (todoText.length > 0) {
+    const task = {
+      todoText,
+      checked: false,
+      id: todoItems.length > 0 ? todoItems[todoItems.length - 1].id + 1 : 1,
+      time: getDateString()
+    };
 
-  function getDateString() {
-    const today = new Date();
-    const dayOfWeek = today.getDay();
+    addTodo(task);
+  }
+});
 
-    let date = (today.getMonth().toString().padStart(1, '0') + 1) +
-              '-' + (today.getDate() < 10 ? "0" + today.getDate() : today.getDate()) +
-              '-' + today.getFullYear();
-    
-    return daylist[dayOfWeek] + " " + date;
+function addTodo(todo) {
+  addToDoItemToTable(todo);
+  todoItems = getTodoArray();
+  todoItems.push(todo);
+  saveTodoItems(todoItems);
+}
+
+function getTodoArray() {
+  return JSON.parse(localStorage.getItem('todoItems')) || [];
+}
+
+function saveTodoItems(array) {
+  localStorage.setItem('todoItems', JSON.stringify(array));
+}
+
+function createTableRow() {
+  const tableRow = document.createElement('tr');
+  tableRow.setAttribute('class', 'row');
+  return tableRow;
+}
+
+function createTableCell(todo) {
+  const tableData = document.createElement('td');
+  tableData.textContent = todo;
+  return tableData;
+}
+
+function createDeleteButton(todo) {
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = 'X';
+  deleteButton.setAttribute('class', 'delete');
+  deleteButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    deletetodo(deleteButton, todo.id);
+  });
+  return deleteButton;
+}
+
+function addToDoItemToTable(todo) {
+  if (document.getElementById('row0') != null) {
+    document.getElementById('resumeToDoTable').deleteRow(0);
   }
 
-  function getTimeString() {
-    let today = new Date();
-    
-    return today.getHours() + ":"  + (today.getMinutes() < 10 ? "0" : "") + today.getMinutes() + ":" + (today.getSeconds() < 10 ? "0" : "") + today.getSeconds();
-  }
+  const row = createTableRow();
+  row.id = todo.id;
+  const table = document.getElementById('resumeToDoTable');
+  table.appendChild(row);
 
+  const dateCell = createTableCell(todo.time);
+  const checkBoxCell = createCheckbox();
+  const toDoTextCell = createTableCell(todo.todoText);
+  const deleteButtonCell = createTableCell();
+  const deleteButton = createDeleteButton(todo);
 
-  function checkBoxClicked(rowString) {
+  row.appendChild(dateCell);
+  row.appendChild(checkBoxCell);
+  row.appendChild(toDoTextCell);
+  deleteButtonCell.appendChild(deleteButton);
+  row.appendChild(deleteButtonCell);
 
-    let checkBox = document.getElementById(rowString);
+  checkBoxCell.addEventListener('click', () => {
+    toggleTask(checkBoxCell, todo.id);
+  });
 
-    let toDoText = document.getElementById(`${rowString}text`);
+  deleteButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    deleteSingleCheckedTask(deleteButton, todo.id);
+  });
+}
 
-    if (typeof(toDoText) != 'undefined' && toDoText != null) {
+function createTableRow() {
+  const tableRow = document.createElement('tr');
+  tableRow.setAttribute('class', 'row');
+  return tableRow;
+}
 
-      if (checkBox.checked == true){
-        
-        // In CSS text-decoration: line-through
-        // object.style.textDecoration = "none|underline|overline|line-through|blink|initial|inherit"
-        toDoText.style.textDecoration = "line-through";
-        
-      } else {
+function createTableCell(todo) {
+  const tableData = document.createElement('td');
+  tableData.textContent = todo;
+  return tableData;
+}
 
-        if (typeof(toDoText) != 'undefined' && toDoText != null) {
-          toDoText.style.textDecoration = "initial";
-        }
-      }
+function createCheckbox() {
+  const checkbox = document.createElement('input');
+  checkbox.setAttribute('type', 'checkbox');
+
+  return checkbox;
+}
+
+function toggleTask(element, id) {
+  todoItems = getTodoArray();
+  for (let i = 0; i < todoItems.length; i++) {
+    if (todoItems[i].id == id) {
+      todoItems[i].checked = !todoItems[i].checked;
+      element.classList.toggle('lineThrough');
     }
-    else {
-      console.log(`checkBoxClicked toDoText Either Undefined or NULL  typeof(toDoText) != ${typeof(toDoText)} && toDoText != null`);
-    }
-
   }
+  // addToDoItemToTable();
+}
 
-  function addToDoItemToTable() {
-    let table = document.getElementById("resumeToDoTable");
-  
-    let row = table.insertRow(tableListRowCounter);
+function createDeleteButton(todo) {
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = 'X';
+  deleteButton.setAttribute('class', 'delete');
 
-    let dateCell = row.insertCell(0);
-    let checkBoxCell = row.insertCell(1);
-    let toDoTextCell = row.insertCell(2);
+  return deleteButton;
+}
 
-    dateCell.innerHTML = getDateString();
+const daylist = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday ',
+  'Thursday',
+  'Friday',
+  'Saturday'
+];
 
-    checkBoxCell.innerHTML = `<input type="checkbox" id="row${eventListenerMaxRowCounter}" title="Added checkbox Title here" value="Added checkbox value"></input>`;
+function getDateString() {
+  const today = new Date();
+  const dayOfWeek = today.getDay();
 
-    // Had to put this BEFORE the addEventListener call
-    toDoTextCell.innerHTML = document.getElementById("toDoItemText").value;
-    toDoTextCell.id = `row${eventListenerMaxRowCounter}text`;
+  let date =
+    today.getMonth().toString().padStart(1, '0') +
+    1 +
+    '-' +
+    (today.getDate() < 10 ? '0' + today.getDate() : today.getDate()) +
+    '-' +
+    today.getFullYear();
 
-    document.getElementById(`row${eventListenerMaxRowCounter}`).addEventListener(
-      "click",
-      function () { checkBoxClicked(`${this.id}`); } 
-      );
+  return daylist[dayOfWeek] + ' ' + date;
+}
 
-    tableListRowCounter++;
+// function checkBoxClicked(rowString) {
+//   let checkBox = document.getElementById(rowString);
 
-    // ensures unique Check Box Listener counter
-    eventListenerMaxRowCounter++;
+//   let toDoText = document.getElementById(`${rowString}text`);
 
-    // Delete the demonstration row
-    if (document.getElementById("row0") != null) {
-      document.getElementById("resumeToDoTable").deleteRow(0);
-      
-      tableListRowCounter--;
+//   if (typeof toDoText != 'undefined' && toDoText != null) {
+//     if (checkBox.checked == true) {
+//       // In CSS text-decoration: line-through
+//       // object.style.textDecoration = "none|underline|overline|line-through|blink|initial|inherit"
+//       toDoText.style.textDecoration = 'line-through';
+//     } else {
+//       if (typeof toDoText != 'undefined' && toDoText != null) {
+//         toDoText.style.textDecoration = 'initial';
+//       }
+//     }
+//   } else {
+//     console.log(
+//       `checkBoxClicked toDoText Either Undefined or NULL  typeof(toDoText) != ${typeof toDoText} && toDoText != null`
+//     );
+//   }
+// }
+
+function deleteAllCheckedTasks() {
+  todoItems = getTodoArray();
+  todoItems = todoItems.filter((todoItem) => {
+    return todoItem.checked === false;
+  });
+  saveTodoItems(todoItems);
+}
+
+function deleteSingleCheckedTask(id) {
+  todoItems = getTodoArray();
+  for (let i = 0; i < todoItems.length; i++) {
+    if (todoItems[i].id === id && todoItems[i].checked === true) {
+      todoItems.splice(i, 1);
     }
-
   }
-
-
-  function deleteToDoItemToTable() {
-
-    let inputs_in_table = document.getElementById("resumeToDoTable").getElementsByTagName("input");
-    let checkBox2;
-
-    let newTableLength = inputs_in_table.length;
-    let newRowPointer = 0;
-    for (let jLoop = 0; newRowPointer <= newTableLength; jLoop++) {
-      
-      if (newRowPointer < newTableLength) {
-        checkBox2 = inputs_in_table[newRowPointer];
-        
-        if (checkBox2.type == "checkbox") {
-
-          if (checkBox2.checked) {
-
-            /*
-            Didn't figure this out before turning in on 1/13/2022....
-
-            rowToDelete = document.getElementById("resumeToDoTable").getRow(newRowPointer);
-            rowToDelete.getElementById(rowToDelete[1].id).deleteEventListener;
-            
-            */
-
-            document.getElementById("resumeToDoTable").deleteRow(newRowPointer);
-
-            tableListRowCounter--;
-            newRowPointer += 0;
-            newTableLength -= 1;
-          }
-          else {
-            newRowPointer++;
-            newTableLength += 0;
-          }
-        }
-        else {
-          newRowPointer++;
-          newTableLength += 0;
-        }
-
-      }
-      else {
-        break;
-      }
-    }
-
-  }
+  saveTodoItems(todoItems);
+  //renderTask();
+}

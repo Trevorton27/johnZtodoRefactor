@@ -21,16 +21,16 @@
 
       <section>
         <br>
-        <center>
-          <div>
-          <button type="button" onclick="addToDoItemToTable()" title="Click Mouse here to Add what you typed">Add your To Do Item to your list</button>
+        <div>
+          <div class='input-field-button'>
+          <button type="button" id='submit-button' title="Click Mouse here to Add what you typed">Add your To Do Item to your list</button>
           </div>
         <br>
-          <div>
-          <button type="button" onclick="deleteToDoItemToTable()" 
+          <div class='input-field-button'>
+          <button id= 'delete-all-completed-tasks-button' type="button"
           title="Click mouse here to delete checked row(s)">Delete Completed & Checked Item from List</button>
           </div>
-        </center>
+        </div>
       </section>
 
     </form>
@@ -52,7 +52,7 @@
       <tbody id="resumeToDoTable" class="tableBody">
       <tr>
         <td>Friday 12-31-2021</td>
-        <td><input type="checkbox" id="row0" title="Original Title" value="Orig checkbox value" onclick="checkBoxClicked('row0')"></input>
+        <td><input type="checkbox" id="row0" title="Original Title" value="Orig checkbox value"></input>
         </td>
         <td id="row0text">Here's what your To Do text will look like.</td>
       </tr>
