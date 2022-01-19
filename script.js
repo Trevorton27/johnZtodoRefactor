@@ -1,3 +1,4 @@
+let todoItems = JSON.parse(localStorage.getItem('todoItems')) || [];
 const deleteAllCompletedTodosButton = document.getElementById(
   'delete-all-completed-tasks-button'
 );
@@ -7,7 +8,7 @@ const submitButton = document.getElementById('submit-button');
 submitButton.addEventListener('click', (e) => {
   e.preventDefault();
   const todoText = document.getElementById('toDoItemText').value;
-  const todoItems = getTodoArray();
+
   if (todoText.length > 0) {
     const task = {
       todoText,
@@ -17,18 +18,14 @@ submitButton.addEventListener('click', (e) => {
     };
 
     addTodo(task);
+    // document.getElementById('form').reset();
   }
 });
 
 function addTodo(todo) {
   addToDoItemToTable(todo);
-  todoItems = getTodoArray();
   todoItems.push(todo);
   saveTodoItems(todoItems);
-}
-
-function getTodoArray() {
-  return JSON.parse(localStorage.getItem('todoItems')) || [];
 }
 
 function saveTodoItems(array) {
@@ -41,53 +38,52 @@ function createTableRow() {
   return tableRow;
 }
 
-function createTableCell(todo) {
-  const tableData = document.createElement('td');
-  tableData.textContent = todo;
-  return tableData;
-}
-
-function createDeleteButton(todo) {
+function createDeleteButton() {
   const deleteButton = document.createElement('button');
   deleteButton.textContent = 'X';
   deleteButton.setAttribute('class', 'delete');
-  deleteButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    deletetodo(deleteButton, todo.id);
-  });
+
   return deleteButton;
 }
 
-function addToDoItemToTable(todo) {
+function addToDoItemToTable() {
   if (document.getElementById('row0') != null) {
     document.getElementById('resumeToDoTable').deleteRow(0);
   }
 
-  const row = createTableRow();
-  row.id = todo.id;
-  const table = document.getElementById('resumeToDoTable');
-  table.appendChild(row);
+  for (let i = 0; i < todoItems.length; i++) {
+    const row = createTableRow();
+    row.id = todoItems[i].id;
+    const table = document.getElementById('resumeToDoTable');
+    table.appendChild(row);
+    const tableDateCell = document.createElement('td');
+    tableDateCell.textContent = todoItems[i].time;
+    const checkbox = document.createElement('input');
+    checkbox.setAttribute('type', 'checkbox');
 
-  const dateCell = createTableCell(todo.time);
-  const checkBoxCell = createCheckbox();
-  const toDoTextCell = createTableCell(todo.todoText);
-  const deleteButtonCell = createTableCell();
-  const deleteButton = createDeleteButton(todo);
+    const toDoTextCell = document.createElement('td');
+    toDoTextCell.textContent = todoItems[i].todoText;
+    const deleteButtonCell = document.createElement('td');
+    const deleteButton = createDeleteButton();
 
-  row.appendChild(dateCell);
-  row.appendChild(checkBoxCell);
-  row.appendChild(toDoTextCell);
-  deleteButtonCell.appendChild(deleteButton);
-  row.appendChild(deleteButtonCell);
+    row.appendChild(tableDateCell);
+    row.appendChild(checkbox);
+    row.appendChild(toDoTextCell);
+    deleteButtonCell.appendChild(deleteButton);
+    row.appendChild(deleteButtonCell);
 
-  checkBoxCell.addEventListener('click', () => {
-    toggleTask(checkBoxCell, todo.id);
-  });
+    checkbox.addEventListener('click', () => {
+      toggleTask(todoItems[i].id);
+      if (todoItems[i].checked === true) {
+        toDoTextCell.style.textDecoration = 'line-through';
+      }
+    });
 
-  deleteButton.addEventListener('click', (e) => {
-    e.stopPropagation();
-    deleteSingleCheckedTask(deleteButton, todo.id);
-  });
+    deleteButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      deleteSingleCheckedTask(deleteButton, todoItems[i].id);
+    });
+  }
 }
 
 function createTableRow() {
@@ -96,31 +92,15 @@ function createTableRow() {
   return tableRow;
 }
 
-function createTableCell(todo) {
-  const tableData = document.createElement('td');
-  tableData.textContent = todo;
-  return tableData;
-}
-
-function createCheckbox() {
-  const checkbox = document.createElement('input');
-  checkbox.setAttribute('type', 'checkbox');
-
-  return checkbox;
-}
-
-function toggleTask(element, id) {
-  todoItems = getTodoArray();
+function toggleTask(id) {
   for (let i = 0; i < todoItems.length; i++) {
     if (todoItems[i].id == id) {
       todoItems[i].checked = !todoItems[i].checked;
-      element.classList.toggle('lineThrough');
     }
   }
-  // addToDoItemToTable();
 }
 
-function createDeleteButton(todo) {
+function createDeleteButton() {
   const deleteButton = document.createElement('button');
   deleteButton.textContent = 'X';
   deleteButton.setAttribute('class', 'delete');
@@ -153,43 +133,22 @@ function getDateString() {
   return daylist[dayOfWeek] + ' ' + date;
 }
 
-// function checkBoxClicked(rowString) {
-//   let checkBox = document.getElementById(rowString);
-
-//   let toDoText = document.getElementById(`${rowString}text`);
-
-//   if (typeof toDoText != 'undefined' && toDoText != null) {
-//     if (checkBox.checked == true) {
-//       // In CSS text-decoration: line-through
-//       // object.style.textDecoration = "none|underline|overline|line-through|blink|initial|inherit"
-//       toDoText.style.textDecoration = 'line-through';
-//     } else {
-//       if (typeof toDoText != 'undefined' && toDoText != null) {
-//         toDoText.style.textDecoration = 'initial';
-//       }
-//     }
-//   } else {
-//     console.log(
-//       `checkBoxClicked toDoText Either Undefined or NULL  typeof(toDoText) != ${typeof toDoText} && toDoText != null`
-//     );
-//   }
-// }
-
 function deleteAllCheckedTasks() {
-  todoItems = getTodoArray();
   todoItems = todoItems.filter((todoItem) => {
     return todoItem.checked === false;
   });
   saveTodoItems(todoItems);
+  addToDoItemToTable();
 }
 
-function deleteSingleCheckedTask(id) {
-  todoItems = getTodoArray();
+function deleteSingleCheckedTask(element, id) {
+  element.parentElement.parentElement.remove();
   for (let i = 0; i < todoItems.length; i++) {
     if (todoItems[i].id === id && todoItems[i].checked === true) {
       todoItems.splice(i, 1);
     }
   }
   saveTodoItems(todoItems);
+  addToDoItemToTable();
   //renderTask();
 }
